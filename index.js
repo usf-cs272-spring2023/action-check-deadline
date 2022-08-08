@@ -75,9 +75,9 @@ try {
     console.log(`  Penalty: -${late_penalty} Points (-${constants.penalty.percent * 100}%) Per ${constants.penalty.interval} Hours Late`);
     console.log(`  Maximum: -${late_maximum} Points (-${constants.penalty.maximum * 100}%)\n`);
 
-    // calculate late grade
+    // calculate late grade (okay if so close to deadline that rounding eliminates penalty)
     const late_diff = submitted_date.diff(deadline_date, 'hours');
-    late_interval   = late_diff.toObject().hours;
+    late_interval   = Number.parseFloat(late_diff.toObject().hours).toFixed(1);
     late_multiplier = Math.ceil(late_interval / constants.penalty.interval);
 
     late_points = Math.min(late_maximum, late_multiplier * late_penalty);
@@ -91,9 +91,10 @@ try {
   let grade_points  = Math.max(starting_points - late_points, 0);
   let grade_percent = Number.parseFloat(grade_points / possible_points * 100).toFixed(1);
 
-  console.log(`    Earned: ${grade_points} Points (${grade_percent}%)`);
+  console.log(`    Earned: ${grade_points} Points (${grade_percent}%)\n`);
 
   // set output
+  core.startGroup('Setting output...');
   core.setOutput('grade_possible', `${possible_points}`);
 
   core.setOutput('deadline_date', deadline_date.toISO());
@@ -109,13 +110,7 @@ try {
 
   core.setOutput('grade_percent', `${grade_percent}`);
   core.setOutput('grade_points',  `${grade_points}`);
-
-  if (late_interval === 0) {
-    core.notice(`${assignment_name}: ${grade_points} / ${possible_points} (${grade_percent}%)`);
-  }
-  else {
-    core.warning(`${assignment_name}: ${grade_points} / ${possible_points} (${grade_percent}%)\nLate Penalty: -${late_points} Points`);
-  }
+  core.endGroup();
 } catch (error) {
   core.setFailed(error.message);
 }
