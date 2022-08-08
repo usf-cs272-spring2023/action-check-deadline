@@ -23,6 +23,10 @@ try {
   let deadline_text = deadline_date.toLocaleString(DateTime.DATETIME_FULL);
   console.log(`       Deadline: ${deadline_text}`);
 
+  if (!deadline_date.isValid) {
+    throw new Error(`Unable to parse deadline date: ${assignment.due}${eod} (${deadline_date.invalidReason})`);
+  }
+
   const extension_hours = parseFloat(core.getInput('extension_hours'));
 
   if (extension_hours > 0) {
@@ -70,6 +74,9 @@ try {
   let late_percent = 0;
   let late_points = 0;
 
+  if (submitted_date > deadline_date) {
+
+  }
 
   // calculate earned grade (make sure not negative)
   let grade_points = Math.max(starting_points - late_points, 0);
