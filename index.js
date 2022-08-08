@@ -97,7 +97,7 @@ try {
   if (late_interval === 0) {
     core.notice(`${assignment_name}: ${grade_points} / ${possible} (${grade_percent}%)`);
   }
-  else (late_interval > 0) {
+  else {
     core.warning(`${assignment_name}: ${grade_points} / ${possible} (${grade_percent}%)\nLate Penalty: -${late_points} Points`);
   }
 } catch (error) {
