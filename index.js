@@ -36,15 +36,9 @@ try {
     console.log(`  Extended: ${deadline_text}`);
   }
 
-  // TODO Check grade percent works
-  // TODO Check invalid assignment name
-  // TODO Check invalid submitted date
-  // TODO Check 0 or negative points
-  // TODO Add in late calculation
-
   // process submitted date
   const submitted = core.getInput('submitted_date')
-  const submitted_date = DateTime.fromISO(submitted).setZone(zone);
+  const submitted_date = DateTime.fromISO(submitted, {zone: zone});
   const submitted_text = submitted_date.toLocaleString(DateTime.DATETIME_FULL);
 
   if (!submitted_date.isValid) {
