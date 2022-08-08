@@ -16,11 +16,11 @@ try {
 
   const assignment = constants.deadlines[assignment_name];
   const possible = parseInt(assignment.max);
-  const deadline = DateTime.fromISO(`${assignment.due}${eod}`).setZone(zone);
+  const deadline = DateTime.fromISO(`${assignment.due}${eod}`, {zone: zone});
   const deadline_text = deadline.toLocaleString(DateTime.DATETIME_FULL);
 
   console.log(`Assignment Name: ${assignment_name}`);
-  console.log(`Points Possible: ${assignment.max}`);
+  console.log(`       Possible: ${possible} Points`);
   console.log(`       Deadline: ${deadline_text}`);
 
   const submitted_date  = core.getInput('submitted_date');
