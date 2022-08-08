@@ -1,0 +1,25 @@
+{
+  "name": "action-check-deadline",
+  "version": "1.0.0",
+  "description": "Github Action to check an assignment deadline and determine a late penalty if needed.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usf-cs272-fall2022/action-check-deadline.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/usf-cs272-fall2022/action-check-deadline/issues"
+  },
+  "homepage": "https://github.com/usf-cs272-fall2022/action-check-deadline#readme",
+  "dependencies": {
+    "@actions/core": "^1.9.0",
+    "@actions/github": "^5.0.3",
+    "luxon": "^3.0.1"
+  }
+}
