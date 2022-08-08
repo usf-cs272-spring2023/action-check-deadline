@@ -7,13 +7,22 @@ const zone = 'America/Los_Angeles';
 const constants = require('./constants.js');
 
 try {
-  const submitted_date  = core.getInput('submitted_date');
   const assignment_name = core.getInput('assignment_name');
+  console.log(`Assignment Name: ${assignment_name}`);
+
+  if (!(assignment_name in constants.deadlines)) {
+    throw new Error(`Unrecognized assignment: ${assignment_name}`);
+  }
+
+  const deadline = constants.deadlines[assignment_name];
+  console.log(deadline);
+
+  const submitted_date  = core.getInput('submitted_date');
   const starting_points = parseInt(core.getInput('starting_points'));
   const extension_hours = parseInt(core.getInput('extension_hours'));
 
+  
   console.log(`Submitted Date:  ${submitted_date}`);
-  console.log(`Assignment Name: ${assignment_name}`);
   console.log(`Starting Points: ${starting_points}`);
   console.log(`Extension Hours: ${extension_hours}`);
 
@@ -27,8 +36,3 @@ try {
 } catch (error) {
   core.setFailed(error.message);
 }
-
-const nameToGreet = core.getInput('who-to-greet');
-  console.log(`Hello ${nameToGreet}!`);
-  const time = (new Date()).toTimeString();
-  core.setOutput("time", time);
