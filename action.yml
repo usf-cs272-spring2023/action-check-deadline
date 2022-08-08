@@ -23,7 +23,7 @@ outputs:
   late_percent:
     description: 'Late penalty (in percent)'
   late_points:
-    desctiption: 'Late penalty (in points)'
+    description: 'Late penalty (in points)'
   grade_percent:
     description: 'Late grade (in percent)'
   grade_points:
