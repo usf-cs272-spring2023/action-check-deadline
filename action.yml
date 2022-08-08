@@ -1,0 +1,35 @@
+name: 'Check Deadline'
+description: 'Checks an assignment deadline and determines a late penalty if needed.'
+inputs:
+  submitted_date:
+    description: 'Date the assignment was submitted'
+    required: true
+  assignment_name:
+    description: 'Name of the assignment'
+    required: true
+  starting_points:
+    description: 'Earned points before late penalties'
+    default: '100'
+    required: true
+  extension_hours:
+    description: 'Amount of extension granted (in hours)'
+    default: '0'
+    required: false
+outputs:
+  late_interval:
+    description: 'Late interval (in hours, 0 if not late)'
+  late_multiplier:
+    description: 'Late penalty multiplier'
+  late_percent:
+    description: 'Late penalty (in percent)'
+  late_points:
+    desctiption: 'Late penalty (in points)'
+  grade_percent:
+    description: 'Late grade (in percent)'
+  grade_points:
+    description: 'Late grade (in points)'
+  grade_possible:
+    description: 'Total points possible'
+runs:
+  using: 'node16'
+  main: 'index.js'

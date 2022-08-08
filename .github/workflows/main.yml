@@ -1,0 +1,41 @@
+on: 
+  workflow_dispatch:
+    inputs:
+      submitted_date:
+        description: 'Date the assignment was submitted'
+        required: true
+      assignment_name:
+        description: 'Name of the assignment'
+        required: true
+      starting_points:
+        description: 'Earned points before late penalties'
+        default: 100
+        required: true
+        type: 'number'
+      extension_hours:
+        description: 'Amount of extension granted (in hours)'
+        default: 0
+        required: false
+        type: 'number'
+
+jobs:
+  test_action:
+    runs-on: ubuntu-latest
+    name: Test action
+    steps:
+      - name: Run action
+        id: run-action
+        uses: usf-cs272-fall2022/action-check-deadline@main
+        with:
+          submitted_date:  ${{ inputs.submitted_date }}
+          assignment_name: ${{ inputs.assignment_name }}
+          starting_points: ${{ inputs.starting_points }}
+          extension_hours: ${{ inputs.extension_hours }}
+
+      - name: Output results
+        id: output-results
+        run: |
+          echo "Late Interval:   ${{ steps.run-action.outputs.late_interval }}"
+          echo "Late Multiplier: ${{ steps.run-action.outputs.late_multiplier }}"
+          echo "Late Penalty:    -${{ steps.run-action.outputs.late_percent }}% (-${{ steps.run-action.outputs.late_points }} points)"
+          echo "Late Grade:      ${{ steps.run-action.outputs.grade_points }} / ${{ steps.run-action.outputs.grade_possible }} (${{ steps.run-action.outputs.grade_percent }}%)"
