@@ -30,7 +30,7 @@ try {
   const extension_hours = parseFloat(core.getInput('extension_hours'));
 
   if (extension_hours > 0) {
-    deadline_date = deadline_date.plus({hours: extension_hours}).toISODate();;
+    deadline_date = deadline_date.plus({hours: extension_hours}).toISODate();
     deadline_text = deadline_date.toLocaleString(DateTime.DATETIME_FULL);
 
     console.log(`  Extended: ${deadline_text}`);
@@ -72,8 +72,8 @@ try {
     const late_penalty = Number.parseFloat(constants.penalty.percent * possible_points).toFixed(1);
     const late_maximum = Number.parseFloat(constants.penalty.maximum * possible_points).toFixed(1);
 
-    console.log(`  Penalty: -${late_penalty} Points (-${constants.penalty.percent}%) Per ${constants.penalty.interval} Hours Late`);
-    console.log(`  Maximum: -${late_maximum} Points (-${constants.penalty.maximum}%)\n`);
+    console.log(`  Penalty: -${late_penalty} Points (-${constants.penalty.percent * 100}%) Per ${constants.penalty.interval} Hours Late`);
+    console.log(`  Maximum: -${late_maximum} Points (-${constants.penalty.maximum * 100}%)\n`);
 
     // calculate late grade
     const late_diff = submitted_date.diff(deadline_date, 'hours');
