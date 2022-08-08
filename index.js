@@ -3,6 +3,7 @@ const github = require('@actions/github');
 
 const { DateTime } = require('luxon');
 const zone = 'America/Los_Angeles';
+const eod = 'T23:59:59';
 
 const constants = require('./constants.js');
 
@@ -14,19 +15,18 @@ try {
   }
 
   const assignment = constants.deadlines[assignment_name];
+  const possible = parseInt(assignment.max);
+  const deadline = DateTime.fromISO(`${assignment.due}${eod}`).setZone(zone);
+  const deadline_text = deadline.toLocaleString(DateTime.DATETIME_FULL);
 
   console.log(`Assignment Name: ${assignment_name}`);
   console.log(`Points Possible: ${assignment.max}`);
-  console.log(`       Deadline: ${assignment.due}`);
-
-
-  console.log(deadline);
+  console.log(`       Deadline: ${deadline_text}`);
 
   const submitted_date  = core.getInput('submitted_date');
   const starting_points = parseInt(core.getInput('starting_points'));
   const extension_hours = parseInt(core.getInput('extension_hours'));
 
-  
   console.log(` Submitted Date: ${submitted_date}`);
   console.log(`Starting Points: ${starting_points}`);
   console.log(`Extension Hours: ${extension_hours}`);
