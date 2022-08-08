@@ -16,6 +16,14 @@ inputs:
     default: '0'
     required: false
 outputs:
+  submitted_date:
+    description: 'Submitted (in ISO format)'
+  submitted_text:
+    description: 'Submitted (in readable text)'
+  deadline_date:
+    description: 'Deadline (in ISO format)'
+  deadline_text: 
+    description: 'Deadline (in readable text)'
   late_interval:
     description: 'Late interval (in hours, 0 if not late)'
   late_multiplier:
@@ -24,12 +32,12 @@ outputs:
     description: 'Late penalty (in percent)'
   late_points:
     description: 'Late penalty (in points)'
-  grade_percent:
-    description: 'Late grade (in percent)'
   grade_points:
     description: 'Late grade (in points)'
   grade_possible:
     description: 'Total points possible'
+  grade_percent:
+    description: 'Late grade (in percent)'
 runs:
   using: 'node16'
   main: 'index.js'
