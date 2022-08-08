@@ -35,7 +35,7 @@ jobs:
       - name: Output results
         id: output-results
         run: |
-          echo "Late Interval:   ${{ steps.run-action.outputs.late_interval }}"
-          echo "Late Multiplier: ${{ steps.run-action.outputs.late_multiplier }}"
-          echo "Late Penalty:    -${{ steps.run-action.outputs.late_percent }}% (-${{ steps.run-action.outputs.late_points }} points)"
-          echo "Late Grade:      ${{ steps.run-action.outputs.grade_points }} / ${{ steps.run-action.outputs.grade_possible }} (${{ steps.run-action.outputs.grade_percent }}%)"
+          echo   "Interval: ${{ steps.run-action.outputs.late_interval }}"
+          echo "Multiplier: ${{ steps.run-action.outputs.late_multiplier }}"
+          echo    "Penalty: ${{ steps.run-action.outputs.late_percent }}% (${{ steps.run-action.outputs.late_points }} points)"
+          echo      "Grade: ${{ steps.run-action.outputs.grade_points }} / ${{ steps.run-action.outputs.grade_possible }} (${{ steps.run-action.outputs.grade_percent }}%)"

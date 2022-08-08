@@ -8,13 +8,18 @@ const constants = require('./constants.js');
 
 try {
   const assignment_name = core.getInput('assignment_name');
-  console.log(`Assignment Name: ${assignment_name}`);
 
   if (!(assignment_name in constants.deadlines)) {
     throw new Error(`Unrecognized assignment: ${assignment_name}`);
   }
 
-  const deadline = constants.deadlines[assignment_name];
+  const assignment = constants.deadlines[assignment_name];
+
+  console.log(`Assignment Name: ${assignment_name}`);
+  console.log(`Points Possible: ${assignment.max}`);
+  console.log(`       Deadline: ${assignment.due}`);
+
+
   console.log(deadline);
 
   const submitted_date  = core.getInput('submitted_date');
@@ -22,7 +27,7 @@ try {
   const extension_hours = parseInt(core.getInput('extension_hours'));
 
   
-  console.log(`Submitted Date:  ${submitted_date}`);
+  console.log(` Submitted Date: ${submitted_date}`);
   console.log(`Starting Points: ${starting_points}`);
   console.log(`Extension Hours: ${extension_hours}`);
 
