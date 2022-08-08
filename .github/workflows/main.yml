@@ -37,13 +37,19 @@ jobs:
       - name: Output results
         id: output-results
         run: |
-          echo  "Submitted: ${{ steps.run-action.outputs.submitted_text }}"
-          echo   "Deadline: ${{ steps.run-action.outputs.deadline_text }}"
+          echo "Assignment: ${{ inputs.assignment_name }}"
+          echo " Submitted: ${{ steps.run-action.outputs.submitted_text }}"
+          echo "  Deadline: ${{ steps.run-action.outputs.deadline_text }}"
           echo ""
 
-          echo   "Interval: ${{ steps.run-action.outputs.late_interval }}"
-          echo "Multiplier: ${{ steps.run-action.outputs.late_multiplier }}"
-          echo    "Penalty: ${{ steps.run-action.outputs.late_percent }}% (${{ steps.run-action.outputs.late_points }} points)"
+          echo "  Duration: ${{ steps.run-action.outputs.late_interval }} Hours Late (x${{ steps.run-action.outputs.late_multiplier }})"
+          echo " Deduction: -${{ steps.run-action.outputs.late_points }} Points (-${{ steps.run-action.outputs.late_percent }}%)"
 
           echo ""
-          echo      "Grade: ${{ steps.run-action.outputs.grade_points }} / ${{ steps.run-action.outputs.grade_possible }} (${{ steps.run-action.outputs.grade_percent }}%)"
+          echo "     Grade: ${{ steps.run-action.outputs.grade_points }} / ${{ steps.run-action.outputs.grade_possible }} Points (${{ steps.run-action.outputs.grade_percent }}%)"
+
+          if [["${{ steps.run-action.outputs.late_interval }}" == "1"]]; then
+            echo "::notice:: ${{ inputs.assignment_name }}: ${{ steps.run-action.outputs.grade_points }} / ${{ steps.run-action.outputs.grade_possible }} Points (${{ steps.run-action.outputs.grade_percent }}%)"
+          else
+            echo "::warning:: ${{ inputs.assignment_name }}: ${{ steps.run-action.outputs.grade_points }} / ${{ steps.run-action.outputs.grade_possible }} Points (${{ steps.run-action.outputs.grade_percent }}%), Late Penalty: -${{ steps.run-action.outputs.late_points }} Points"
+          fi
