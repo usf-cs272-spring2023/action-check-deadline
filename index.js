@@ -49,7 +49,7 @@ try {
   
   // process possible and starting points
   const possible_points = parseFloat(assignment.max);
-  const starting_points = parseFloat(core.getInput('starting_points'));
+  const starting_points = parseFloat(core.getInput('starting_points', { required: true }));
 
   if (!(possible_points > 0)) {
     throw new Error(`Possible points must be positive: ${possible_points}`);
