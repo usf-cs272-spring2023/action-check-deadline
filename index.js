@@ -39,7 +39,7 @@ try {
   // process submitted date
   // something goes wrong with ISO dates that have : colon symbols; access directly from payload
   // const submitted = core.getInput('submitted_date', { required: true });
-  const submitted = `${ github.context.inputs.submitted_date }`;
+  const submitted = `${ github.context.payload.inputs.submitted_date }`;
   const submitted_date = DateTime.fromISO(submitted, {zone: zone});
   const submitted_text = submitted_date.toLocaleString(DateTime.DATETIME_FULL);
 
