@@ -9,6 +9,7 @@ on:
       submitted_date:
         description: 'Date submitted (ISO format)'
         required: true
+        type: 'string'
       starting_points:
         description: 'Earned points before late penalties'
         default: 100
@@ -30,7 +31,7 @@ jobs:
         uses: usf-cs272-fall2022/action-check-deadline@main
         with:
           assignment_name: "${{ inputs.assignment_name }}"
-          submitted_date:  "${{ inputs.submitted_date  }}"
+          submitted_date: "${{ inputs.submitted_date }}"
           starting_points: "${{ inputs.starting_points }}"
           extension_hours: "${{ inputs.extension_hours }}"
 

@@ -7,6 +7,8 @@ const eod = 'T23:59:59';
 
 const constants = require('./constants.js');
 
+console.log(JSON.stringify(github.event.inputs));
+
 try {
   // lookup assignment
   const assignment_name = core.getInput('assignment_name', { required: true });
