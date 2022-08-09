@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
     inputs:
       assignment_name:
-        description: 'Name of the assignment'
+        description: 'Assignment name'
         required: true
       submitted_date:
-        description: 'Date the assignment was submitted'
+        description: 'Date submitted (ISO format)'
         required: true
       starting_points:
         description: 'Earned points before late penalties'

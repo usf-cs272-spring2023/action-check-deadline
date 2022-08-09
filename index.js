@@ -9,7 +9,7 @@ const constants = require('./constants.js');
 
 try {
   // lookup assignment
-  const assignment_name = core.getInput('assignment_name');
+  const assignment_name = core.getInput('assignment_name', { required: true });
 
   if (!(assignment_name in constants.deadlines)) {
     throw new Error(`Unrecognized assignment: ${assignment_name}`);
@@ -37,7 +37,7 @@ try {
   }
 
   // process submitted date
-  const submitted = core.getInput('submitted_date')
+  const submitted = core.getInput('submitted_date', { required: true });
   const submitted_date = DateTime.fromISO(submitted, {zone: zone});
   const submitted_text = submitted_date.toLocaleString(DateTime.DATETIME_FULL);
 
