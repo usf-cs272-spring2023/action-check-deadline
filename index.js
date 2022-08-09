@@ -30,7 +30,7 @@ try {
   const extension_hours = parseFloat(core.getInput('extension_hours'));
 
   if (extension_hours > 0) {
-    deadline_date = deadline_date.plus({hours: extension_hours}).toISODate();
+    deadline_date = deadline_date.plus({hours: extension_hours});
     deadline_text = deadline_date.toLocaleString(DateTime.DATETIME_FULL);
 
     console.log(`  Extended: ${deadline_text}`);
