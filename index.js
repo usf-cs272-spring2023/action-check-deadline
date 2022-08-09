@@ -7,8 +7,6 @@ const eod = 'T23:59:59';
 
 const constants = require('./constants.js');
 
-console.log(JSON.stringify(github.event.inputs));
-
 try {
   // lookup assignment
   const assignment_name = core.getInput('assignment_name', { required: true });
@@ -114,5 +112,9 @@ try {
   core.setOutput('grade_points',  `${grade_points}`);
   core.endGroup();
 } catch (error) {
+  core.startGroup('Outputting context...');
+  console.log(JSON.stringify(github.context));
+  core.endGroup();
+
   core.setFailed(error.message);
 }
