@@ -29,10 +29,10 @@ jobs:
         id: run-action
         uses: usf-cs272-fall2022/action-check-deadline@main
         with:
-          assignment_name: ${{ inputs.assignment_name }}
-          submitted_date:  ${{ inputs.submitted_date }}
-          starting_points: ${{ inputs.starting_points }}
-          extension_hours: ${{ inputs.extension_hours }}
+          assignment_name: "${{ inputs.assignment_name }}"
+          submitted_date:  "${{ inputs.submitted_date  }}"
+          starting_points: "${{ inputs.starting_points }}"
+          extension_hours: "${{ inputs.extension_hours }}"
 
       - name: Output results
         id: output-results
