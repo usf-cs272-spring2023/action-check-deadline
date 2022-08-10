@@ -3,7 +3,7 @@ const github = require('@actions/github');
 
 const constants = require('./constants.js');
 
-const { DateTime } = require('luxon');
+const { DateTime, Settings } = require('luxon');
 const zone = 'America/Los_Angeles';
 const eod = 'T23:59:59';
 Settings.defaultZone = zone;
