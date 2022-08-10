@@ -4,13 +4,13 @@ inputs:
   assignment_name:
     description: 'Assignment name'
     required: true
-  submitted_date:
-    description: 'Date submitted (ISO format)'
-    required: true
   starting_points:
     description: 'Earned points before late penalties'
     default: '100'
     required: true
+  submitted_date:
+    description: 'Date submitted (ISO format)'
+    required: false
   extension_hours:
     description: 'Amount of extension granted (in hours)'
     default: '0'
@@ -22,7 +22,7 @@ outputs:
     description: 'Submitted (in readable text)'
   deadline_iso:
     description: 'Deadline (in ISO format)'
-  deadline_text: 
+  deadline_text:
     description: 'Deadline (in readable text)'
   late_interval:
     description: 'Late interval (in hours, 0 if not late)'

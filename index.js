@@ -1,11 +1,12 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 
+const constants = require('./constants.js');
+
 const { DateTime } = require('luxon');
 const zone = 'America/Los_Angeles';
 const eod = 'T23:59:59';
-
-const constants = require('./constants.js');
+Settings.defaultZone = zone;
 
 try {
   // lookup assignment
@@ -19,7 +20,7 @@ try {
   console.log(`Assignment: ${assignment_name}`);
 
   // process deadline and possible extension
-  let deadline_date = DateTime.fromISO(`${assignment.due}${eod}`, {zone: zone});
+  let deadline_date = DateTime.fromISO(`${assignment.due}${eod}`);
   let deadline_text = deadline_date.toLocaleString(DateTime.DATETIME_FULL);
   console.log(`  Deadline: ${deadline_text}`);
 
@@ -40,15 +41,29 @@ try {
   // something goes wrong with ISO dates that have : colon symbols; access directly from payload
   // const submitted = core.getInput('submitted_date', { required: true });
   const submitted = `${ github.context.payload.inputs.submitted_date }`;
-  const submitted_date = DateTime.fromISO(submitted, {zone: zone});
-  const submitted_text = submitted_date.toLocaleString(DateTime.DATETIME_FULL);
+  const submitted_date = DateTime.fromISO(submitted);
 
   if (!submitted_date.isValid) {
-    throw new Error(`Unable to parse submitted date: ${submitted} (${submitted_date.invalidReason})`);
+    // try to use event commit timestamp as submitted date
+    try {
+      console.log(JSON.stringify(github.context));
+      console.log(JSON.stringify(github.context.payload));
+
+      // switch (github.conext.payload.action) {
+      //
+      // }
+      //
+      // submitted_date = DateTime.fromISO(github.context.payload.inputs.submitted_date);
+    }
+    catch (error) {
+      core.warning('Unable to determine submitted date; using current date and time.');
+      submitted_date = DateTime.now();
+    }
   }
 
+  const submitted_text = submitted_date.toLocaleString(DateTime.DATETIME_FULL);
   console.log(` Submitted: ${submitted_text}\n`);
-  
+
   // process possible and starting points
   const possible_points = parseFloat(assignment.max);
   const starting_points = parseFloat(core.getInput('starting_points', { required: true }));
