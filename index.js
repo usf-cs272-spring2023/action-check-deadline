@@ -148,26 +148,9 @@ async function run() {
   fs.writeFileSync(filename, JSON.stringify(output));
 
   const artifactClient = artifact.create();
-  const uploadResponse = await artifactClient.uploadArtifact('results', [filename], '.');
+  const uploadResponse = await artifactClient.uploadArtifact('check-deadline-results', [filename], '.');
   console.log(`Uploaded: ${JSON.stringify(uploadResponse)}`);
 
-  // https://github.com/actions/toolkit
-
-  // core.setOutput('grade_possible', `${possible_points}`);
-  //
-  // core.setOutput('deadline_date', deadline_date.toISO());
-  // core.setOutput('deadline_text', deadline_text);
-  //
-  // core.setOutput('submitted_date', submitted_date.toISO());
-  // core.setOutput('submitted_text', submitted_text);
-  //
-  // core.setOutput('late_interval',   `${late_interval}`);
-  // core.setOutput('late_multiplier', `${late_multiplier}`);
-  // core.setOutput('late_percent',    `${late_percent}`);
-  // core.setOutput('late_points',     `${late_points}`);
-  //
-  // core.setOutput('grade_percent', `${grade_percent}`);
-  // core.setOutput('grade_points',  `${grade_points}`);
   core.endGroup();
 }
 
