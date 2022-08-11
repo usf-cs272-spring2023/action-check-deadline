@@ -1,7 +1,10 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
+const artifact = require('@actions/artifact');
 
 const constants = require('./constants.js');
+
+const fs = require('fs');
 
 const { DateTime, Settings } = require('luxon');
 const zone = 'America/Los_Angeles';
@@ -121,21 +124,50 @@ try {
 
   // set output
   core.startGroup('Setting output...');
-  core.setOutput('grade_possible', `${possible_points}`);
 
-  core.setOutput('deadline_date', deadline_date.toISO());
-  core.setOutput('deadline_text', deadline_text);
+  const output = {
+    'grade_possible': `${possible_points}`,
+    'deadline_date': deadline_date.toISO(),
+    'deadline_text': deadline_text,
+    'submitted_date': submitted_date.toISO(),
+    'submitted_text': submitted_text,
+    'late_interval': `${late_interval}`,
+    'late_multiplier': `${late_multiplier}`,
+    'late_percent': `${late_percent}`,
+    'late_points': `${late_points}`,
+    'grade_percent': `${grade_percent}`,
+    'grade_points': `${grade_points}`,
+  };
 
-  core.setOutput('submitted_date', submitted_date.toISO());
-  core.setOutput('submitted_text', submitted_text);
+  for (const property in output) {
+    core.setOutput(property, output[property]);
+    core.saveState(property, output[property]);
+  }
 
-  core.setOutput('late_interval',   `${late_interval}`);
-  core.setOutput('late_multiplier', `${late_multiplier}`);
-  core.setOutput('late_percent',    `${late_percent}`);
-  core.setOutput('late_points',     `${late_points}`);
+  const filename = 'check-deadline-results.json';
+  fs.writeFileSync(filename, JSON.stringify(output));
 
-  core.setOutput('grade_percent', `${grade_percent}`);
-  core.setOutput('grade_points',  `${grade_points}`);
+  const artifactClient = artifact.create();
+  const uploadResponse = await artifactClient.uploadArtifact('results', [filename], '.');
+  console.log(`Uploaded: ${JSON.stringify(uploadResponse)}`);
+
+  // https://github.com/actions/toolkit
+
+  // core.setOutput('grade_possible', `${possible_points}`);
+  //
+  // core.setOutput('deadline_date', deadline_date.toISO());
+  // core.setOutput('deadline_text', deadline_text);
+  //
+  // core.setOutput('submitted_date', submitted_date.toISO());
+  // core.setOutput('submitted_text', submitted_text);
+  //
+  // core.setOutput('late_interval',   `${late_interval}`);
+  // core.setOutput('late_multiplier', `${late_multiplier}`);
+  // core.setOutput('late_percent',    `${late_percent}`);
+  // core.setOutput('late_points',     `${late_points}`);
+  //
+  // core.setOutput('grade_percent', `${grade_percent}`);
+  // core.setOutput('grade_points',  `${grade_points}`);
   core.endGroup();
 } catch (error) {
   core.startGroup('Outputting context...');
