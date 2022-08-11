@@ -56,16 +56,18 @@ try {
           console.log(`   Release: ${github.context.payload.release.tag_name}`);
           break;
         default:
-          submitted_date = DateTime.now();
+          throw new Error(`Unexpected event type: ${github.context.eventName}`);
       }
     }
     catch (error) {
+      core.warning(error);
       core.warning('Unable to determine submitted date; using current date and time.');
-      submitted_date = DateTime.now();
 
       core.startGroup('Outputting context...');
       console.log(JSON.stringify(github.context));
       core.endGroup();
+
+      submitted_date = DateTime.now();
     }
   }
 
