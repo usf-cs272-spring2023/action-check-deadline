@@ -27,20 +27,20 @@ jobs:
     runs-on: ubuntu-latest
     name: Check Deadline
     outputs:
-      assignment_name: ${{ steps.check-deadline.output.assignment_name }}
-      submitted_iso: ${{ steps.check-deadline.output.submitted_iso }}
-      submitted_text: ${{ steps.check-deadline.output.submitted_text }}
-      deadline_iso: ${{ steps.check-deadline.output.deadline_iso }}
-      deadline_text: ${{ steps.check-deadline.output.deadline_text }}
-      late_interval: ${{ steps.check-deadline.output.late_interval }}
-      late_multiplier: ${{ steps.check-deadline.output.late_multiplier }}
-      late_percent: ${{ steps.check-deadline.output.late_percent }}
-      late_points: ${{ steps.check-deadline.output.late_points }}
-      grade_points: ${{ steps.check-deadline.output.grade_points }}
-      grade_possible: ${{ steps.check-deadline.output.grade_possible }}
-      grade_percent: ${{ steps.check-deadline.output.grade_percent }}
-      results_name: ${{ steps.check-deadline.output.results_name }}
-      results_json: ${{ steps.check-deadline.output.results_json }}
+      assignment_name: "${{ steps.check-deadline.output.assignment_name }}"
+      submitted_iso: "${{ steps.check-deadline.output.submitted_iso }}"
+      submitted_text: "${{ steps.check-deadline.output.submitted_text }}"
+      deadline_iso: "${{ steps.check-deadline.output.deadline_iso }}"
+      deadline_text: "${{ steps.check-deadline.output.deadline_text }}"
+      late_interval: "${{ steps.check-deadline.output.late_interval }}"
+      late_multiplier: "${{ steps.check-deadline.output.late_multiplier }}"
+      late_percent: "${{ steps.check-deadline.output.late_percent }}"
+      late_points: "${{ steps.check-deadline.output.late_points }}"
+      grade_points: "${{ steps.check-deadline.output.grade_points }}"
+      grade_possible: "${{ steps.check-deadline.output.grade_possible }}"
+      grade_percent: "${{ steps.check-deadline.output.grade_percent }}"
+      results_name: "${{ steps.check-deadline.output.results_name }}"
+      results_json: "${{ steps.check-deadline.output.results_json }}"
 
     steps:
       - name: Check Deadline
@@ -57,8 +57,8 @@ jobs:
     name: Output Results
     needs: grade
     env:
-      RESULTS_NAME: '${{ needs.grade.outputs.results_name }}'
-      RESULTS_JSON: '${{ needs.grade.outputs.results_json }}'
+      RESULTS_NAME: "${{ needs.grade.outputs.results_name }}"
+      RESULTS_JSON: "${{ needs.grade.outputs.results_json }}"
     steps:
       - name: Download Results
         id: download-results
@@ -71,6 +71,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
+            console.log(JSON.stringify(github.context));
+            console.log(JSON.stringify(process.env));
             const output = require(`./${process.env.RESULTS_JSON}`);
             console.log(JSON.stringify(output));
 
