@@ -56,21 +56,21 @@ jobs:
     runs-on: ubuntu-latest
     name: Output Results
     needs: grade
+    env:
+      RESULTS_NAME: '${{ needs.grade.outputs.results_name }}'
+      RESULTS_JSON: '${{ needs.grade.outputs.results_json }}'
     steps:
       - name: Download Results
         id: download-results
         uses: actions/download-artifact@v3
         with:
-          name: ${{ needs.grade.outputs.results_name }}
+          name: '${{ env.RESULTS_NAME }}'
 
       - name: Display Results
         id: display-results
         uses: actions/github-script@v6
-        env:
-          RESULTS_JSON: '${{ needs.grade.outputs.results_name }}'
         with:
           script: |
-            console.log('${{ toJSON(needs.grade.outputs) }}');
             const output = require(`./${process.env.RESULTS_JSON}`);
             console.log(JSON.stringify(output));
 
