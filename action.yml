@@ -16,7 +16,7 @@ inputs:
     default: '0'
     required: false
 outputs:
-  assignment_name: 
+  assignment_name:
     description: 'Name of assignment'
   submitted_iso:
     description: 'Submitted (in ISO format)'
