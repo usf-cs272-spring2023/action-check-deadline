@@ -73,6 +73,7 @@ jobs:
           script: |
             const output = require(`./${process.env.RESULTS_JSON}`);
             console.log(JSON.stringify(output));
+            console.log('');
 
             core.startGroup('Setting output...');
             for (const property in output) {
