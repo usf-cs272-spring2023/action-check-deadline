@@ -67,10 +67,10 @@ jobs:
         id: display-results
         uses: actions/github-script@v6
         env:
-          RESULTS_JSON: 'check-deadline-results.json'
+          RESULTS_JSON: '${{ needs.grade.outputs.results_json }}'
         with:
           script: |
-            const output = require(`./${RESULTS_JSON}`);
+            const output = require(`./${process.env.RESULTS_JSON}`);
             console.log(JSON.stringify(output));
 
             core.startGroup('Setting output...');
