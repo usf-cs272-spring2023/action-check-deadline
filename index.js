@@ -63,13 +63,13 @@ async function run() {
       }
     }
     catch (error) {
-      core.log('');
+      console.log('');
       core.warning(`Unable to determine submitted date; using current date and time. ${error}`);
 
       core.startGroup('Outputting context...');
       console.log(JSON.stringify(github.context));
       core.endGroup();
-      core.log('');
+      console.log('');
 
       submitted_date = DateTime.now();
     }
