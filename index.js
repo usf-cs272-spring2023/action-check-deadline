@@ -44,19 +44,24 @@ try {
   const submitted_date = DateTime.fromISO(submitted);
 
   if (!submitted_date.isValid) {
-    // try to use event commit timestamp as submitted date
+    // try to use event payload for submitted date
     try {
-      console.log(JSON.stringify(github.context));
-      console.log(JSON.stringify(github.context.payload));
-
-      // switch (github.conext.payload.action) {
-      //
-      // }
-      //
-      // submitted_date = DateTime.fromISO(github.context.payload.inputs.submitted_date);
+      switch (github.context.eventName) {
+        case 'push':
+          submitted_date = DateTime.fromISO(github.context.payload.head_commit.timestamp);
+          console.log(`    Commit: ${github.context.payload.head_commit.message}`);
+          break;
+        case 'release':
+          submitted_date = DateTime.fromISO(github.context.payload.release.created_at);
+          console.log(`   Release: ${github.context.payload.release.tag_name}`);
+          break;
+        default:
+          submitted_date = DateTime.now();
+      }
     }
     catch (error) {
       core.warning('Unable to determine submitted date; using current date and time.');
+      console.log(JSON.stringify(github.context));
       submitted_date = DateTime.now();
     }
   }
