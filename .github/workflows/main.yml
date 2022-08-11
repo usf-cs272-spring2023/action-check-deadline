@@ -90,25 +90,4 @@ jobs:
               core.warning(`${output.assignment_name}: ${output.grade_points} / ${output.grade_possible} Points (${output.grade_percent}%, Late Penalty: -${output.late_points} Points)`);
             }
 
-      # - name: Output Results
-      #   id: output-results
-      #   run: |
-      #     echo "Assignment: ${{ inputs.assignment_name }}"
-      #     echo " Submitted: ${{ steps.check-deadline.outputs.submitted_text }}"
-      #     echo "  Deadline: ${{ steps.check-deadline.outputs.deadline_text }}"
-      #     echo ""
-      #
-      #     echo "  Duration: ${{ steps.check-deadline.outputs.late_interval }} Hours Late (x${{ steps.check-deadline.outputs.late_multiplier }})"
-      #     echo " Deduction: -${{ steps.check-deadline.outputs.late_points }} Points (-${{ steps.check-deadline.outputs.late_percent }}%)"
-      #
-      #     GRADE_TEXT="${{ steps.check-deadline.outputs.grade_points }} / ${{ steps.check-deadline.outputs.grade_possible }}"
-      #     echo ""
-      #     echo "     Grade: ${GRADE_TEXT} Points (${{ steps.check-deadline.outputs.grade_percent }}%)"
-      #
-      #     if [[ "${{ steps.check-deadline.outputs.late_multiplier }}" == "0" ]]; then
-      #       echo "::notice:: ${{ inputs.assignment_name }}: ${GRADE_TEXT} Points (${{ steps.check-deadline.outputs.grade_percent }}%)"
-      #       echo "::set-output name=status::${GRADE_TEXT}"
-      #     else
-      #       echo "::warning:: ${{ inputs.assignment_name }}: ${GRADE_TEXT} Points (${{ steps.check-deadline.outputs.grade_percent }}%), Late Penalty: -${{ steps.check-deadline.outputs.late_points }} Points"
-      #       echo "::set-output name=status::${GRADE_TEXT} (Late)"
-      #     fi
+            return output;
