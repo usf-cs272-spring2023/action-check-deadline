@@ -63,11 +63,13 @@ async function run() {
       }
     }
     catch (error) {
+      core.log('');
       core.warning(`Unable to determine submitted date; using current date and time. ${error}`);
 
       core.startGroup('Outputting context...');
       console.log(JSON.stringify(github.context));
       core.endGroup();
+      core.log('');
 
       submitted_date = DateTime.now();
     }
@@ -143,14 +145,15 @@ async function run() {
     core.setOutput(property, output[property]);
     core.saveState(property, output[property]);
   }
+  core.endGroup();
 
+  core.startGroup('Uploading artifact...');
   const filename = 'check-deadline-results.json';
   fs.writeFileSync(filename, JSON.stringify(output));
 
   const artifactClient = artifact.create();
   const uploadResponse = await artifactClient.uploadArtifact('check-deadline-results', [filename], '.');
   console.log(`Uploaded: ${JSON.stringify(uploadResponse)}`);
-
   core.endGroup();
 }
 
