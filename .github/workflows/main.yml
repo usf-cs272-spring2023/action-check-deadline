@@ -50,7 +50,7 @@ jobs:
           echo ""
           echo "     Grade: ${{ steps.run-action.outputs.grade_points }} / ${{ steps.run-action.outputs.grade_possible }} Points (${{ steps.run-action.outputs.grade_percent }}%)"
 
-          if [["${{ steps.run-action.outputs.late_interval }}" == "1"]]; then
+          if [[ "${{ steps.run-action.outputs.late_multiplier }}" == "0" ]]; then
             echo "::notice:: ${{ inputs.assignment_name }}: ${{ steps.run-action.outputs.grade_points }} / ${{ steps.run-action.outputs.grade_possible }} Points (${{ steps.run-action.outputs.grade_percent }}%)"
           else
             echo "::warning:: ${{ inputs.assignment_name }}: ${{ steps.run-action.outputs.grade_points }} / ${{ steps.run-action.outputs.grade_possible }} Points (${{ steps.run-action.outputs.grade_percent }}%), Late Penalty: -${{ steps.run-action.outputs.late_points }} Points"
