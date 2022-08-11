@@ -172,7 +172,7 @@ async function run() {
 }
 
 try {
-  await run();
+  run();
 } catch (error) {
   core.startGroup('Outputting context...');
   console.log(JSON.stringify(github.context));
