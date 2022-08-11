@@ -71,8 +71,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            console.log(JSON.stringify(github.context));
-            console.log(JSON.stringify(process.env));
+            console.log(JSON.stringify(context));
+            console.log(JSON.stringify(process));
             const output = require(`./${process.env.RESULTS_JSON}`);
             console.log(JSON.stringify(output));
 
