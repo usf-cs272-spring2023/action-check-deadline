@@ -125,9 +125,8 @@ async function run() {
   console.log(`    Earned: ${grade_points} Points (${grade_percent}%)\n`);
 
   // set output
-  core.startGroup('Setting output...');
-
   const output = {
+    'assignment_name': `${assignment_name}`,
     'grade_possible': `${possible_points}`,
     'deadline_date': deadline_date.toISO(),
     'deadline_text': deadline_text,
@@ -138,22 +137,27 @@ async function run() {
     'late_percent': `${late_percent}`,
     'late_points': `${late_points}`,
     'grade_percent': `${grade_percent}`,
-    'grade_points': `${grade_points}`,
+    'grade_points': `${grade_points}`
   };
-
-  for (const property in output) {
-    core.setOutput(property, output[property]);
-    core.saveState(property, output[property]);
-  }
-  core.endGroup();
 
   core.startGroup('Uploading artifact...');
   const filename = 'check-deadline-results.json';
   fs.writeFileSync(filename, JSON.stringify(output));
 
-  const artifactClient = artifact.create();
-  const uploadResponse = await artifactClient.uploadArtifact('check-deadline-results', [filename], '.');
-  console.log(`Uploaded: ${JSON.stringify(uploadResponse)}`);
+  const client = artifact.create();
+  const response = await client.uploadArtifact('check-deadline-results', [filename], '.');
+  console.log(`Uploaded: ${JSON.stringify(response)}`);
+
+  output.results_json = filename;
+  output.results_name = response.artifactName;
+  core.endGroup();
+
+  core.startGroup('Setting output...');
+  for (const property in output) {
+    core.log(property, output[property]);
+    core.setOutput(property, output[property]);
+    core.saveState(property, output[property]);
+  }
   core.endGroup();
 }
 

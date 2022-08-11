@@ -26,6 +26,22 @@ jobs:
   grade:
     runs-on: ubuntu-latest
     name: Check Deadline
+    outputs:
+      assignment_name: ${{ steps.check-deadline.output.assignment_name }}
+      submitted_iso: ${{ steps.check-deadline.output.submitted_iso }}
+      submitted_text: ${{ steps.check-deadline.output.submitted_text }}
+      deadline_iso: ${{ steps.check-deadline.output.deadline_iso }}
+      deadline_text: ${{ steps.check-deadline.output.deadline_text }}
+      late_interval: ${{ steps.check-deadline.output.late_interval }}
+      late_multiplier: ${{ steps.check-deadline.output.late_multiplier }}
+      late_percent: ${{ steps.check-deadline.output.late_percent }}
+      late_points: ${{ steps.check-deadline.output.late_points }}
+      grade_points: ${{ steps.check-deadline.output.grade_points }}
+      grade_possible: ${{ steps.check-deadline.output.grade_possible }}
+      grade_percent: ${{ steps.check-deadline.output.grade_percent }}
+      results_name: ${{ steps.check-deadline.output.results_name }}
+      results_json: ${{ steps.check-deadline.output.results_json }}
+
     steps:
       - name: Check Deadline
         id: check-deadline
@@ -42,12 +58,34 @@ jobs:
     needs: grade
     steps:
       - name: Download Results
+        id: download-results
         uses: actions/download-artifact@v3
         with:
-          name: check-deadline-results
+          name: ${{ needs.grade.outputs.results_name }}
 
-      - name: Display Download
-        run: ls -R
+      - name: Display Results
+        id: display-results
+        uses: actions/github-script@6
+        with:
+          script: |
+            const output = require('./${{ needs.grade.outputs.results_json }}');
+            core.log(JSON.stringify(output));
+
+            core.startGroup('Setting output...');
+            for (const property in output) {
+              core.log(property, output[property]);
+              core.setOutput(property, output[property]);
+              core.saveState(property, output[property]);
+            }
+            core.endGroup();
+            core.log('');
+
+            if (parseFloat(output.late_multiplier) < 1) {
+              core.notice(`${output.assignment_name}: ${output.grade_points} / ${output.grade_possible} Points (${output.grade_percent}%)`);
+            }
+            else {
+              core.warning(`${output.assignment_name}: ${output.grade_points} / ${output.grade_possible} Points (${output.grade_percent}%, Late Penalty: -${output.late_points} Points)`);
+            }
 
       # - name: Output Results
       #   id: output-results

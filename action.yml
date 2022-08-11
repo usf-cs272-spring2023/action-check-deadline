@@ -16,6 +16,8 @@ inputs:
     default: '0'
     required: false
 outputs:
+  assignment_name: 
+    description: 'Name of assignment'
   submitted_iso:
     description: 'Submitted (in ISO format)'
   submitted_text:
@@ -38,6 +40,10 @@ outputs:
     description: 'Total points possible'
   grade_percent:
     description: 'Late grade (in percent)'
+  results_name:
+    description: 'Name of results artifact'
+  results_json:
+    description: 'Name of results JSON file'
 runs:
   using: 'node16'
   main: 'index.js'
