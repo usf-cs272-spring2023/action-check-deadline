@@ -60,8 +60,7 @@ try {
       }
     }
     catch (error) {
-      core.warning(error);
-      core.warning('Unable to determine submitted date; using current date and time.');
+      core.warning(`Unable to determine submitted date; using current date and time. ${error}`);
 
       core.startGroup('Outputting context...');
       console.log(JSON.stringify(github.context));
