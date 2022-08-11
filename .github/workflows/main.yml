@@ -65,7 +65,7 @@ jobs:
 
       - name: Display Results
         id: display-results
-        uses: actions/github-script@6
+        uses: actions/github-script@v6
         with:
           script: |
             const output = require('./${{ needs.grade.outputs.results_json }}');
