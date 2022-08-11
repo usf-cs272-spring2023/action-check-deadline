@@ -66,9 +66,11 @@ jobs:
       - name: Display Results
         id: display-results
         uses: actions/github-script@v6
+        env:
+          RESULTS_JSON: ${{ needs.grade.outputs.results_json }}
         with:
           script: |
-            const output = require('./${{ needs.grade.outputs.results_json }}');
+            const output = require(`./${RESULTS_JSON}`);
             console.log(JSON.stringify(output));
 
             core.startGroup('Setting output...');
