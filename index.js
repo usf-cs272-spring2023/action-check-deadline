@@ -11,7 +11,7 @@ const zone = 'America/Los_Angeles';
 const eod = 'T23:59:59';
 Settings.defaultZone = zone;
 
-try {
+async function run() {
   // lookup assignment
   const assignment_name = core.getInput('assignment_name', { required: true });
 
@@ -169,6 +169,10 @@ try {
   // core.setOutput('grade_percent', `${grade_percent}`);
   // core.setOutput('grade_points',  `${grade_points}`);
   core.endGroup();
+}
+
+try {
+  await run();
 } catch (error) {
   core.startGroup('Outputting context...');
   console.log(JSON.stringify(github.context));
