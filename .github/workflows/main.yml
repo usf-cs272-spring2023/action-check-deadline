@@ -1,4 +1,4 @@
-name: 'Check deadline'
+name: 'Check Deadline'
 
 on:
   workflow_dispatch:
@@ -23,35 +23,51 @@ on:
         type: 'number'
 
 jobs:
-  test_action:
+  grade:
     runs-on: ubuntu-latest
-    name: Test action
+    name: Check Deadline
     steps:
-      - name: Run action
+      - name: Check Deadline
         id: check-deadline
         uses: usf-cs272-fall2022/action-check-deadline@main
         with:
           assignment_name: "${{ inputs.assignment_name }}"
-          submitted_date: "${{ inputs.submitted_date }}"
+          submitted_date:  "${{ inputs.submitted_date  }}"
           starting_points: "${{ inputs.starting_points }}"
           extension_hours: "${{ inputs.extension_hours }}"
 
-      - name: Output results
-        id: output-results
-        run: |
-          echo "Assignment: ${{ inputs.assignment_name }}"
-          echo " Submitted: ${{ steps.check-deadline.outputs.submitted_text }}"
-          echo "  Deadline: ${{ steps.check-deadline.outputs.deadline_text }}"
-          echo ""
+  result:
+    runs-on: ubuntu-latest
+    name: Output Results
+    needs: grade
+    steps:
+      - name: Download Results
+        uses: actions/download-artifact@v3
+        with:
+          name: check-deadline-results
 
-          echo "  Duration: ${{ steps.check-deadline.outputs.late_interval }} Hours Late (x${{ steps.check-deadline.outputs.late_multiplier }})"
-          echo " Deduction: -${{ steps.check-deadline.outputs.late_points }} Points (-${{ steps.check-deadline.outputs.late_percent }}%)"
+      - name: Display Download
+        run: ls -R
 
-          echo ""
-          echo "     Grade: ${{ steps.check-deadline.outputs.grade_points }} / ${{ steps.check-deadline.outputs.grade_possible }} Points (${{ steps.check-deadline.outputs.grade_percent }}%)"
-
-          if [[ "${{ steps.check-deadline.outputs.late_multiplier }}" == "0" ]]; then
-            echo "::notice:: ${{ inputs.assignment_name }}: ${{ steps.check-deadline.outputs.grade_points }} / ${{ steps.check-deadline.outputs.grade_possible }} Points (${{ steps.check-deadline.outputs.grade_percent }}%)"
-          else
-            echo "::warning:: ${{ inputs.assignment_name }}: ${{ steps.check-deadline.outputs.grade_points }} / ${{ steps.check-deadline.outputs.grade_possible }} Points (${{ steps.check-deadline.outputs.grade_percent }}%), Late Penalty: -${{ steps.check-deadline.outputs.late_points }} Points"
-          fi
+      # - name: Output Results
+      #   id: output-results
+      #   run: |
+      #     echo "Assignment: ${{ inputs.assignment_name }}"
+      #     echo " Submitted: ${{ steps.check-deadline.outputs.submitted_text }}"
+      #     echo "  Deadline: ${{ steps.check-deadline.outputs.deadline_text }}"
+      #     echo ""
+      #
+      #     echo "  Duration: ${{ steps.check-deadline.outputs.late_interval }} Hours Late (x${{ steps.check-deadline.outputs.late_multiplier }})"
+      #     echo " Deduction: -${{ steps.check-deadline.outputs.late_points }} Points (-${{ steps.check-deadline.outputs.late_percent }}%)"
+      #
+      #     GRADE_TEXT="${{ steps.check-deadline.outputs.grade_points }} / ${{ steps.check-deadline.outputs.grade_possible }}"
+      #     echo ""
+      #     echo "     Grade: ${GRADE_TEXT} Points (${{ steps.check-deadline.outputs.grade_percent }}%)"
+      #
+      #     if [[ "${{ steps.check-deadline.outputs.late_multiplier }}" == "0" ]]; then
+      #       echo "::notice:: ${{ inputs.assignment_name }}: ${GRADE_TEXT} Points (${{ steps.check-deadline.outputs.grade_percent }}%)"
+      #       echo "::set-output name=status::${GRADE_TEXT}"
+      #     else
+      #       echo "::warning:: ${{ inputs.assignment_name }}: ${GRADE_TEXT} Points (${{ steps.check-deadline.outputs.grade_percent }}%), Late Penalty: -${{ steps.check-deadline.outputs.late_points }} Points"
+      #       echo "::set-output name=status::${GRADE_TEXT} (Late)"
+      #     fi
