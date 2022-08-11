@@ -67,7 +67,7 @@ jobs:
         id: display-results
         uses: actions/github-script@v6
         env:
-          RESULTS_JSON: '${{ needs.grade.outputs.results_json }}'
+          RESULTS_JSON: '${{ needs.grade.outputs.results_name }}'
         with:
           script: |
             console.log('${{ toJSON(needs.grade.outputs) }}');
