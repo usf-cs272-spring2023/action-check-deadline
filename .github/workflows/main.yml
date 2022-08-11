@@ -69,16 +69,16 @@ jobs:
         with:
           script: |
             const output = require('./${{ needs.grade.outputs.results_json }}');
-            core.log(JSON.stringify(output));
+            console.log(JSON.stringify(output));
 
             core.startGroup('Setting output...');
             for (const property in output) {
-              core.log(property, output[property]);
+              console.log(property, output[property]);
               core.setOutput(property, output[property]);
               core.saveState(property, output[property]);
             }
             core.endGroup();
-            core.log('');
+            console.log('');
 
             if (parseFloat(output.late_multiplier) < 1) {
               core.notice(`${output.assignment_name}: ${output.grade_points} / ${output.grade_possible} Points (${output.grade_percent}%)`);

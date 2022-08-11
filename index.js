@@ -154,7 +154,7 @@ async function run() {
 
   core.startGroup('Setting output...');
   for (const property in output) {
-    core.log(property, output[property]);
+    console.log(property, output[property]);
     core.setOutput(property, output[property]);
     core.saveState(property, output[property]);
   }
