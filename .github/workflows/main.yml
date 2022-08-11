@@ -70,6 +70,7 @@ jobs:
           RESULTS_JSON: '${{ needs.grade.outputs.results_json }}'
         with:
           script: |
+            console.log('${{ toJSON(needs.grade.outputs) }}');
             const output = require(`./${process.env.RESULTS_JSON}`);
             console.log(JSON.stringify(output));
 
