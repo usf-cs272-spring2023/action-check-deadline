@@ -41,7 +41,7 @@ try {
   // something goes wrong with ISO dates that have : colon symbols; access directly from payload
   // const submitted = core.getInput('submitted_date', { required: true });
   const submitted = `${ github.context.payload.inputs.submitted_date }`;
-  const submitted_date = DateTime.fromISO(submitted);
+  let submitted_date = DateTime.fromISO(submitted);
 
   if (!submitted_date.isValid) {
     // try to use event payload for submitted date
