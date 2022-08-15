@@ -42,13 +42,18 @@ async function run() {
 
   // process submitted date
   // something goes wrong with ISO dates that have : colon symbols; access directly from payload
-  // const submitted = core.getInput('submitted_date', { required: true });
-  const submitted = `${ github.context.payload.inputs.submitted_date }`;
-  let submitted_date = DateTime.fromISO(submitted);
+  let submitted_date = undefined;
 
-  if (!submitted_date.isValid) {
-    // try to use event payload for submitted date
-    try {
+  console.log('');
+  console.log(JSON.stringify(github.context.payload));
+  console.log('');
+
+  try {
+    if ('inputs' in github.context.payload && github.context.payload.inputs.submitted_date) {
+      submitted_date = DateTime.fromISO(github.context.payload.inputs.submitted_date);
+    }
+    else {
+      // try to use event payload for submitted date
       switch (github.context.eventName) {
         case 'push':
           submitted_date = DateTime.fromISO(github.context.payload.head_commit.timestamp);
@@ -62,17 +67,21 @@ async function run() {
           throw new Error(`Unexpected event type: ${github.context.eventName}`);
       }
     }
-    catch (error) {
-      console.log('');
-      core.warning(`Unable to determine submitted date; using current date and time. ${error}`);
 
-      core.startGroup('Outputting context...');
-      console.log(JSON.stringify(github.context));
-      core.endGroup();
-      console.log('');
-
-      submitted_date = DateTime.now();
+    if (!submitted_date.isValid) {
+      throw new Error(`Could not parse date: ${ submitted_date.invalidReason}`);
     }
+  }
+  catch (error) {
+    console.log('');
+    core.warning(`Unable to determine submitted date; using current date and time. ${error}`);
+
+    core.startGroup('Outputting context...');
+    console.log(JSON.stringify(github.context));
+    core.endGroup();
+    console.log('');
+
+    submitted_date = DateTime.now();
   }
 
   const submitted_text = submitted_date.toLocaleString(DateTime.DATETIME_FULL);
