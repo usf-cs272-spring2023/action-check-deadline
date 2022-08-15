@@ -44,10 +44,6 @@ async function run() {
   // something goes wrong with ISO dates that have : colon symbols; access directly from payload
   let submitted_date = undefined;
 
-  console.log('');
-  console.log(JSON.stringify(github.context.payload));
-  console.log('');
-
   try {
     if ('inputs' in github.context.payload && github.context.payload.inputs.submitted_date) {
       console.log(`     Input: ${github.context.payload.inputs.submitted_date}`);
