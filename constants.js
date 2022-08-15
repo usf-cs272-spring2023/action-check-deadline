@@ -1,6 +1,6 @@
 exports.deadlines = {
   // homework
-  'Template':         {'max': 100, 'due': '2022-08-26'},
+  'Template':         {'max': 100, 'due': '2022-08-12'},
   'ArgumentParser':   {'max': 100, 'due': '2022-09-02'},
   'WordCleaner':      {'max': 100, 'due': '2022-09-09'},
   'WordIndex':        {'max': 100, 'due': '2022-09-16'},
