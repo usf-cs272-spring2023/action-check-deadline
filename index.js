@@ -144,6 +144,7 @@ async function run() {
   const output = {
     'assignment_name': `${assignment_name}`,
     'grade_possible': `${possible_points}`,
+    'grade_starting': `${starting_points}`,
     'deadline_date': deadline_date.toISO(),
     'deadline_text': deadline_text,
     'submitted_date': submitted_date.toISO(),

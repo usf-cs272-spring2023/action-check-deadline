@@ -34,10 +34,12 @@ outputs:
     description: 'Late penalty (in percent)'
   late_points:
     description: 'Late penalty (in points)'
-  grade_points:
-    description: 'Late grade (in points)'
+  grade_starting:
+    description: 'Earned points before late penalties'
   grade_possible:
     description: 'Total points possible'
+  grade_points:
+    description: 'Late grade (in points)'
   grade_percent:
     description: 'Late grade (in percent)'
   results_name:
