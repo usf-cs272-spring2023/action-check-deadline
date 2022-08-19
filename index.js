@@ -185,5 +185,6 @@ try {
   console.log(JSON.stringify(github.context));
   core.endGroup();
 
+  core.exportVariable('ERROR_MESSAGE', error.message);
   core.setFailed(error.message);
 }
