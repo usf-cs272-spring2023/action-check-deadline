@@ -154,7 +154,8 @@ async function run() {
     'late_percent': `${late_percent}`,
     'late_points': `${late_points}`,
     'grade_percent': `${grade_percent}`,
-    'grade_points': `${grade_points}`
+    'grade_points': `${grade_points}`,
+    'workflow_run': `${github.context.runId}`
   };
 
   core.startGroup('Uploading artifact...');
