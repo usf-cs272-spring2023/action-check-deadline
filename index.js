@@ -49,6 +49,10 @@ async function run() {
       console.log(`     Input: ${github.context.payload.inputs.submitted_date}`);
       submitted_date = DateTime.fromISO(github.context.payload.inputs.submitted_date);
     }
+    else if (`SUBMITTED_DATE` in process.env && process.env.SUBMITTED_DATE) {
+      console.log(`     Input: ${process.env.SUBMITTED_DATE}`);
+      submitted_date = DateTime.fromISO(process.env.SUBMITTED_DATE);
+    }
     else {
       // try to use event payload for submitted date
       switch (github.context.eventName) {
