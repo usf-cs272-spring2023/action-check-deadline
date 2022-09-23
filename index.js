@@ -24,12 +24,20 @@ async function run() {
 
   // process deadline and possible extension
   let deadline_date = DateTime.fromISO(`${assignment.due}${eod}`);
-  let deadline_text = deadline_date.toLocaleString(DateTime.DATETIME_FULL);
-  console.log(`  Deadline: ${deadline_text}`);
 
   if (!deadline_date.isValid) {
     throw new Error(`Unable to parse deadline date: ${assignment.due}${eod} (${deadline_date.invalidReason})`);
   }
+
+  // section 3 project deadlines 1 day later
+  if (context.repo.owner == 'usf-cs272-03-fall2022') {
+    if (assignment_name.startsWith('Project')) {
+      deadline_date = deadline_date.plus({days: 1});
+    }
+  }
+
+  let deadline_text = deadline_date.toLocaleString(DateTime.DATETIME_FULL);
+  console.log(`  Deadline: ${deadline_text}`);
 
   const extension_hours = parseFloat(core.getInput('extension_hours'));
 
