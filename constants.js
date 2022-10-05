@@ -7,7 +7,7 @@ exports.deadlines = {
   'PrettyJsonWriter': {'max': 100, 'due': '2022-09-23'},
   'FileSorter':       {'max': 100, 'due': '2022-09-30'},
   'FileFinder':       {'max': 100, 'due': '2022-10-07'},
-  'LinkParser':       {'max': 100, 'due': '2022-10-14'},
+  'LinkFinder':       {'max': 100, 'due': '2022-10-14'},
   'LoggerSetup':      {'max': 100, 'due': '2022-10-21'},
   'HtmlCleaner':      {'max': 100, 'due': '2022-10-28'},
   'ReadWriteLock':    {'max': 100, 'due': '2022-11-04'},
