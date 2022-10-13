@@ -18,7 +18,7 @@ exports.deadlines = {
   'Project 1 Tests':    {'max': 100, 'due': '2022-09-20'},
   'Project 1 Review 1': {'max':  30, 'due': '2022-09-27'},
   'Project 1 Review 2': {'max':  20, 'due': '2022-10-04'},
-  'Project 1 Design':   {'max':  50, 'due': '2022-10-25'},
+  'Project 1 Design':   {'max':  50, 'due': '2022-10-11'},
 
   'Project 2 Tests':    {'max': 100, 'due': '2022-10-25'},
   'Project 2 Review 1': {'max':  30, 'due': '2022-11-01'},
