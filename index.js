@@ -186,7 +186,6 @@ async function run() {
   for (const property in output) {
     console.log(`${property}: ${output[property]}`);
     core.setOutput(property, output[property]);
-    core.saveState(property, output[property]);
   }
   core.endGroup();
 }
