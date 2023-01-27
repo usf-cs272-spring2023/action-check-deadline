@@ -29,13 +29,6 @@ async function run() {
     throw new Error(`Unable to parse deadline date: ${assignment.due}${eod} (${deadline_date.invalidReason})`);
   }
 
-  // section 3 project deadlines 1 day later
-  if (github.context.payload.repository.owner.login == 'usf-cs272-03-fall2022') {
-    if (assignment_name.startsWith('Project')) {
-      deadline_date = deadline_date.plus({days: 1});
-    }
-  }
-
   let deadline_text = deadline_date.toLocaleString(DateTime.DATETIME_FULL);
   console.log(`  Deadline: ${deadline_text}`);
 
