@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/usf-cs272-fall2022/action-check-deadline.git"
+    "url": "git+https://github.com/usf-cs272-spring2023/action-check-deadline.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/usf-cs272-fall2022/action-check-deadline/issues"
+    "url": "https://github.com/usf-cs272-spring2023/action-check-deadline/issues"
   },
-  "homepage": "https://github.com/usf-cs272-fall2022/action-check-deadline#readme",
+  "homepage": "https://github.com/usf-cs272-spring2023/action-check-deadline#readme",
   "dependencies": {
     "@actions/artifact": "^1.1.0",
     "@actions/core": "^1.9.0",

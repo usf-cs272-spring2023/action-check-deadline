@@ -46,7 +46,7 @@ jobs:
     steps:
       - name: Check Deadline
         id: check-deadline
-        uses: usf-cs272-fall2022/action-check-deadline@main
+        uses: usf-cs272-spring2023/action-check-deadline@main
         with:
           assignment_name: "${{ inputs.assignment_name }}"
           submitted_date:  "${{ inputs.submitted_date  }}"
