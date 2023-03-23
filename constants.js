@@ -8,7 +8,7 @@ exports.deadlines = {
   'FileSorter':       {'max': 100, 'due': '2023-03-03'},
   'FileFinder':       {'max': 100, 'due': '2023-03-10'},
   'LoggerSetup':      {'max': 100, 'due': '2023-03-24'},
-  'ReadWriteLock':    {'max': 100, 'due': '2023-03-31'},
+  'MultiReaderLock':  {'max': 100, 'due': '2023-03-31'},
   'PrimeFinder':      {'max': 100, 'due': '2023-04-10'},
   'HtmlFetcher':      {'max': 100, 'due': '2023-04-28'},
   'HtmlCleaner':      {'max': 100, 'due': '2023-04-28'},
